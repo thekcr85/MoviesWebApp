@@ -1,0 +1,43 @@
+﻿@page
+@model MoviesWebApp.Pages.User.Home.DetailsModel
+
+<div class="container py-4">
+    <div class="card shadow-sm h-100 border-0 rounded-3">
+        <div class="row g-0">
+            <!-- Zdjęcie filmu -->
+            <div class="col-md-4">
+                <img src="@Model.Movie.Image" class="card-img-top rounded-3" alt="@Model.Movie.Title" style="height: 100%; width: 100%; object-fit: contain;">
+            </div>
+            <!-- Szczegóły filmu -->
+            <div class="col-md-8">
+                <div class="card-body d-flex flex-column">
+                    <h1 class="card-title text-primary">@Model.Movie.Title</h1>
+                    <h5 class="card-subtitle text-muted mb-3">Directed by @Model.Movie.Director</h5>
+                    <!-- Wyświetlanie tylko roku -->
+                    <h6 class="text-muted">@Model.Movie.ReleaseDate.Year</h6>
+
+                    <p class="card-text mt-3 text-secondary">@Html.Raw(Model.Movie.Description)</p>
+
+                    <hr class="my-4">
+
+                    <div>
+                        <h5 class="text-primary">Category:</h5>
+                        <p class="text-muted">@Model.Movie.Category.Name</p>
+                    </div>
+                    <div>
+                        <h5 class="text-primary">Format:</h5>
+                        <p class="text-muted">@Model.Movie.Format.Name</p>
+                    </div>
+                    <div>
+                        <h5 class="text-primary">Distributor:</h5>
+                        <p class="text-muted">@Model.Movie.Distributor.Name</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <a asp-page="/User/Home/Index" class="btn btn-outline-secondary btn-sm">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

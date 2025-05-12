@@ -1,0 +1,54 @@
+﻿@page
+@model MoviesWebApp.Pages.Admin.Distributors.IndexModel
+@{
+	ViewData["Title"] = "Distributors";
+}
+
+<div class="container py-4">
+	<div class="row align-items-center mb-4">
+		<div class="col-md-6">
+			<h2 class="text-primary mb-0">Distributors</h2>
+		</div>
+		<div class="col-md-6 text-end mt-3 mt-md-0">
+			<a asp-page="Create" class="btn btn-outline-primary">
+				<i class="bi bi-plus-circle me-1"></i> Create New Distributor
+			</a>
+		</div>
+	</div>
+
+	<div class="card shadow-sm border-0 rounded-4">
+		<div class="card-body p-0">
+			<table class="table table-hover table-bordered table-striped mb-0 text-center align-middle">
+				<thead class="table-dark">
+					<tr>
+						<th style="width: 60%;">Distributor Name</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Distributors != null && Model.Distributors.Any())
+					{
+						foreach (var distributor in Model.Distributors)
+						{
+							<tr>
+								<td>@distributor.Name</td>
+								<td>
+									<div class="w-75 btn-group" role="group">
+										<a asp-page="Edit" asp-route-id="@distributor.Id" class="btn btn-primary mx-2"><i class="bi bi-pencil-square"></i></a>
+									<a asp-page="Delete" asp-route-id="@distributor.Id" class="btn btn-danger mx-2"><i class="bi bi-trash3-fill"></i></a>
+									</div>
+								</td>
+							</tr>
+						}
+					}
+					else
+					{
+						<tr>
+							<td colspan="2" class="text-muted">No distributors found.</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

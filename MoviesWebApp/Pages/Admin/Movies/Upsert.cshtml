@@ -1,0 +1,86 @@
+﻿@page
+@model MoviesWebApp.Pages.Admin.Movies.UpsertModel
+@{
+}
+
+<form method="post" enctype="multipart/form-data">
+	<div class="border p-3 mt-4">
+		<input type="hidden" asp-for="Movie.Id" />
+		<h2 class="text-primary pl-3">
+			@(Model.Movie.Id != 0 ? "Update" : "Create") Movie
+		</h2>
+		<hr />
+
+		<div class="row">
+			<div class="col-md-9">
+				<!-- pola formularza -->
+				<div class="mb-3">
+					<label asp-for="Movie.Title"></label>
+					<input asp-for="Movie.Title" class="form-control" />
+					<span asp-validation-for="Movie.Title" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.Director"></label>
+					<input asp-for="Movie.Director" class="form-control" />
+					<span asp-validation-for="Movie.Director" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.ReleaseDate"></label>
+					<input asp-for="Movie.ReleaseDate" class="form-control" type="date" />
+					<span asp-validation-for="Movie.ReleaseDate" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.Description"></label>
+					<textarea asp-for="Movie.Description" class="form-control" rows="6"></textarea>
+					<span asp-validation-for="Movie.Description" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.Image"></label>
+					<input type="file" name="files" id="uploadBox" class="form-control" />
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.CategoryId"></label>
+					<select asp-for="Movie.CategoryId" asp-items="Model.CategoryList" class="form-select">
+						<option selected disabled>- Select Category -</option>
+					</select>
+					<span asp-validation-for="Movie.CategoryId" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.DistributorId"></label>
+					<select asp-for="Movie.DistributorId" asp-items="Model.DistributorList" class="form-select">
+						<option selected disabled>- Select Distributor -</option>
+					</select>
+					<span asp-validation-for="Movie.DistributorId" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Movie.FormatId"></label>
+					<select asp-for="Movie.FormatId" asp-items="Model.FormatList" class="form-select">
+						<option selected disabled>- Select Format -</option>
+					</select>
+					<span asp-validation-for="Movie.FormatId" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="col-md-3 text-center">
+				@if (!string.IsNullOrEmpty(Model.Movie.Image))
+				{
+					<img src="@Model.Movie.Image"
+						 alt="Movie poster"
+						 class="img-fluid rounded-4 shadow-sm border border-2 mb-3"
+						 style="max-height: 300px; object-fit: cover;" />
+				}
+
+				<button type="submit" class="btn btn-primary mb-2" style="width:150px;">
+					@(Model.Movie.Id != 0 ? "Update" : "Create")
+				</button>
+				<br />
+				<a asp-page="Index" class="btn btn-secondary" style="width:150px;">Back To List</a>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,97 @@
+﻿@page
+@model MoviesWebApp.Pages.Admin.Movies.IndexModel
+@{
+}
+
+<div class="container py-4">
+	<div class="row align-items-center mb-4">
+		<div class="col-md-6">
+			<h2 class="text-primary mb-0">Movies</h2>
+		</div>
+		<div class="col-md-6 text-end mt-3 mt-md-0">
+			<a asp-page="Upsert" class="btn btn-outline-primary">
+				<i class="bi bi-plus-circle me-1"></i> Create New Movie
+			</a>
+		</div>
+	</div>
+
+	<div class="card shadow-sm border-0 rounded-4">
+		<div class="card-body p-0">
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered table-striped mb-0 text-center align-middle w-100">
+					<thead class="table-dark">
+						<tr>
+							<th>Title</th>
+							<th>Director</th>
+							<th>Release Date</th>
+							<th>Description</th>
+							<th>Category</th>
+							<th>Distributor</th>
+							<th>Format</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model.Movies != null && Model.Movies.Any())
+						{
+							foreach (var movie in Model.Movies)
+							{
+								<tr>
+									<td>@movie.Title</td>
+									<td>@movie.Director</td>
+									<td>@movie.ReleaseDate.Year</td>
+									<td>@movie.Description</td>
+									<td>@movie.Category.Name</td>
+									<td>@movie.Distributor.Name</td>
+									<td>@movie.Format.Name</td>
+									<td>
+										<div class="btn-group" role="group">
+											<a asp-page="Upsert" asp-route-id="@movie.Id" class="btn btn-primary mx-1">
+												<i class="bi bi-pencil-square"></i>
+											</a>
+
+											<form method="post" asp-page-handler="Delete" asp-route-id="@movie.Id"
+												  onsubmit="return confirmDelete(event)" style="display:inline;">
+												<button type="submit" class="btn btn-danger mx-1">
+													<i class="bi bi-trash3-fill"></i>
+												</button>
+											</form>
+										</div>
+									</td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td colspan="8" class="text-muted">No movies found.</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	// Funkcja do potwierdzenia usunięcia z SweetAlert2
+	function confirmDelete(e) {
+		e.preventDefault();  // Zapobiega wysłaniu formularza od razu
+		Swal.fire({
+			title: 'Are you sure you want to delete?',
+			text: "This action cannot be undone!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#3085d6',
+			confirmButtonText: 'Delete',
+			cancelButtonText: 'Cancel'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				e.target.submit();  // Jeśli użytkownik potwierdzi, wysyła formularz
+			}
+		});
+	}
+</script>

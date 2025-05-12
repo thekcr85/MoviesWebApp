@@ -1,0 +1,23 @@
+﻿@page
+@model MoviesWebApp.Pages.User.Home.IndexModel
+
+<div class="container py-4">
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		@foreach (var movie in Model.MovieList)
+		{
+			<div class="col">
+				<div class="card shadow-sm h-100 border-1">
+					<img src="@movie.Image" class="card-img-top" alt="@movie.Title" style="object-fit: cover;">
+					<div class="card-body d-flex flex-column">
+						<h5 class="card-title">@movie.Title</h5>
+						<h6 class="text-muted">@movie.ReleaseDate.Year</h6>
+						<p class="card-text text-truncate" style="max-height: 4.5em;">@movie.Description</p>
+						<div class="mt-auto">
+							<a asp-page="Details" asp-route-id="@movie.Id" class="btn btn-outline-primary btn-sm w-100">Details</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
