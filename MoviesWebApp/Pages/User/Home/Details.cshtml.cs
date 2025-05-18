@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Movies.DataAccess.Repository.IRepository;
 using Movies.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MoviesWebApp.Pages.User.Home
 {
@@ -16,20 +17,16 @@ namespace MoviesWebApp.Pages.User.Home
 
 		public Movie Movie { get; set; }
 
-		// Metoda OnGet dla szczegó³ów filmu
 		public IActionResult OnGet(int id)
 		{
-			// Pobranie szczegó³ów filmu po Id z repozytorium przy u¿yciu UnitOfWork
-			Movie = _unitOfWork.Movie.GetFirstOrDefault(
-				m => m.Id == id, includeProperties:"Category,Distributor,Format"
-			);
+			Movie = _unitOfWork.Movie.GetFirstOrDefault(m => m.Id == id, includeProperties: "Category,Distributor,Format");
 
 			if (Movie == null)
 			{
-				return NotFound(); // Zwrócenie 404, jeœli film nie zosta³ znaleziony
+				return NotFound();
 			}
 
-			return Page(); // Zwrot strony, gdy film zostanie znaleziony
+			return Page();
 		}
 	}
 }
